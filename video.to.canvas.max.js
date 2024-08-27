@@ -40,7 +40,7 @@ c={a:(obj)=>{let a0,d;
 			if(d in y&&'snap' in y[d]){delete y[d].snap
 			}for(d0 of [1,2]){drawModule(c.z(d,d0),3)}}
 	},z:(order,num)=>{return c.magic[order].randomTargetArray[num]}
-},secretEventProp=(order=null,obj=null,event=null)=>{let a0=[...c.init],a1,a2,d=0;a0.push('testConfigCalled','isPrimeCalled','isPreventedPrimeCalled','interveneStarted','interveneEnded','interveneError','coreManipulation','mutationObserved','resizeObserved','intersectionObserved','posterSet','resizeObserverIsOff','intersectionObserverIsOff','mutationObserverIsOff','navHidden','navShown','fault','videoSet','readyState');
+},secretEventProp=(order=null,obj=null,event=null)=>{let a0=[...c.init],a1,d=0;a0.push('testConfigCalled','isPrimeCalled','isPreventedPrimeCalled','interveneStarted','interveneEnded','interveneError','coreManipulation','mutationObserved','resizeObserved','intersectionObserved','posterSet','resizeObserverIsOff','intersectionObserverIsOff','mutationObserverIsOff','navHidden','navShown','fault','videoSet','readyState');
 	if(order==null&&event==null){
 		function disguiseMe(){
 			for(d;d<a0.length;d++){this[a0[d]]=btoa(a.c()).split("").map(c=>c.charCodeAt(0).toString(16).padStart(2,"0")).map(value=>({value,sort:Math.random()})).sort((a,b)=>a.sort-b.sort).map(({value})=>value).join('').substring(0,10)}
@@ -98,9 +98,9 @@ c={a:(obj)=>{let a0,d;
 		a4.wordSpacing='4px';
 		a4.font=a4.font.replace(/\d+/g,a3.fontsize)
 	}return a3
-},snapshot=(order,type)=>{let a0,a1,a2,a3,a4,d
-	if(type==0&&'snap' in y[order]){c.z(order,1).putImageData(y[order].snap,0,0)
-	}if(type==1){
+},snapshot=(order,type)=>{let a0,a1,a2,a3,a4=typeof y[order].video!=='undefined',d
+	if(type==0&&'snap' in y[order]&&a4){c.z(order,1).putImageData(y[order].snap,0,0)
+	}if(type==1&&a4){
 		queueMicrotask(()=>{a0=y[order].video.media;a1=c.z(order,1).canvas;a2=c.e();
 			(async()=>{
 				for(d of ['width','height']){a2[d]=a1[d]
@@ -171,11 +171,15 @@ c={a:(obj)=>{let a0,d;
 		}if(a0==c.init[12]){offset(a2);
 			for(d of [0,1,2]){drawModule(c.z(a2,d),3)
 			};aid(a2);streamer(a1,rotate(a2,true))													/*play*/
+			if(c.z(a2,0).canvas.width<577&&y[a2].nav){
+				drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2)}	
 		}if(a0==c.init[11]){c.magic[a2].randomTargetArray=y[a2].targets;offset(a2);					/*pause*/
 		}if(a0==c.init[6]){aid(a2);time(a2)															/*canplaythrough*/
 		}if(a0==c.init[2]||a0==c.init[3]){_is(a2);time(a2)											/*loadeddata & loadedmetadata*/
-		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);drawModule(c.z(a2,2),3);		/*emptied, ended or error*/
-			if(a0==c.init[8]){drawModule(c.z(a2,1),3);a3.paused=true;y[a2].nav=canvasNav(a2);a3.currentTime=0}
+		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);								/*emptied, ended or error*/
+			if(a0==c.init[8]){c.z(a2,0).canvas.stop().then(out=>{
+					if(out&&y[a2].nav){y[a2].nav=canvasNav(a2)
+						drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2,true)}})}
 		}if(a0==c.init[9]){snapshot(a2,1);canvasProg(a2,a1);snapshot(a2,0)							/*seeked*/
 		}if(a0==c.init[10]){																		/*seeking*/
 		}if(a0==c.init[23]){aid(a2)																	/*load*/
@@ -525,7 +529,7 @@ c={a:(obj)=>{let a0,d;
 }class CanvasSourceObject extends NAME{
 	constructor(order=null,src=null,track=null){super(new NAME('CanvasSourceObject').name);this._connect=_connect;this._source=src;this._track=track;this._src=_setSrc}
 	toString(){return  NAME.toString(this)}valueOf(){return NAME.valueOf(this)}
-};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.72,false);c.d(a.w,'PRIME',PRIME,false);
+};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.76,false);c.d(a.w,'PRIME',PRIME,false);
 for(let d of [PRIME,HELP,videoToCanvas,CanvasSourceObject]){c.a(d)
 };c.d(a.d,'captureEvents',null,false);
 self.onresize=()=>{a.r=true;if(typeof a.w._resize!=='undefined'){clearTimeout(a.w._resize)};c.x();a.w._resize=setTimeout(()=>{rb()},2e2)}
