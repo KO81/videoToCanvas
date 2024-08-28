@@ -184,7 +184,7 @@ c={a:(obj)=>{let a0,d;
 		}if(a0==c.init[10]){																		/*seeking*/
 		}if(a0==c.init[23]){aid(a2)																	/*load*/
 		}if(a0==c.init[15]){																		/*volumechange*/
-		};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)}
+		};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)}
 	}else{return c.error('@Enable: Object is null')}
 },methods=(obj)=>{let d=0;
 	if(typeof obj.play==='undefined'){
