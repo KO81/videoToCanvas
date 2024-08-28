@@ -1,10 +1,10 @@
-import{videoToCanvas,CanvasSourceObject,HELP}from'/api/src/c/?what=xjs&time=natm&that=video.to.canvas.js';
+import{videoToCanvas,CanvasSourceObject,HELP}from'/video.to.canvas.js';
 "use strict";/*
 author: Christian Feilert
 version: 2.b.1
 type: expanded/demonstration
 date started: 27/6-2024
-date last modified by author: 20/8-2024  */window._return=0
+date last modified by author: 28/8-2024  */window._return=0
 let a=(e)=>document.querySelectorAll(e)
 ,b=(e,what)=>{!Boolean(what[0])?e.classList.remove(what[1]):e.classList.add(what[1])},c=(e,what)=>{return e.classList.contains(what)
 },/*d,*/g={a:0,b:'main'},j={set:{},cur:{}},fr=()=>{return new FileReader()},count=0,newVideo,ce=a('[id="ce"]')[0];
@@ -31,28 +31,28 @@ function chrome(){return(typeof window.uaData!=='undefined')
 	};readOut('<div class="text-info mb-2 overflow-hidden '+outin()+'"><pre>'+text.replaceAll('</span>0','</span>'+casing(0,4))+'</pre></div>')
 };onload=()=>{let a0=a('#navigation')[0];
 	if(a0.classList.contains('invisible')){a0.classList.remove('invisible');onload=null}
-}/////////////////////////////////////////////
-//											//	
+}/////////////////////////////////////////////////////////
+//							//	
 //	obvious i'm not writing like this 		//
-//		this is for demonstration only ...  //
-//											//
-//////////////////////////////////////////////
-const p0=HTMLCanvasElement.prototype,p1=p0.getContext												/*taking backup of HTMLCanvasElement*/
+//		this is for demonstration only ...  	//
+//							//
+//////////////////////////////////////////////////////////
+const p0=HTMLCanvasElement.prototype,p1=p0.getContext											/*taking backup of HTMLCanvasElement*/
 
-//Object.defineProperty(p0,'captureStream',{value:null,writable:false})								/*disabling the captureStream function*/
+//Object.defineProperty(p0,'captureStream',{value:null,writable:false})									/*disabling the captureStream function*/
 
 var newObject,hidden,eventArray,poster,videoSource,elm=a('[data-do-what]'),obj=_('badge'),n=new videoToCanvas(),
 	m=null,event,d,pretend,hasContext=0,srcObj=new CanvasSourceObject(),videoArr=['4.mp4','5.mp4','6.mp4','trailer.mp4'];
 
-//window.throwError='is not undefined'																/*disables throw error within m object*/
-//obj.addEventListener('testConfigCalled',e=>sayHey(e),{capture:true})											/* event called by name*/
-//obj.addEventListener('fault',e=>sayHey(e),{capture:true})											/* objects error event called by name*/
+//window.throwError='is not undefined'													/*disables throw error within m object*/
+//obj.addEventListener('testConfigCalled',e=>sayHey(e),{capture:true})									/* event called by name*/
+//obj.addEventListener('fault',e=>sayHey(e),{capture:true})										/* objects error event called by name*/
 if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 	ce.classList.add('bg-black')
-}function rotate(){																			/*function to mask the getContext function*/
+}function rotate(){															/*function to mask the getContext function*/
 	if(g.a==3){let a0=btoa(Date.now()*Math.random()).substring(0,Math.floor(Math.random()*5+3)).toLowerCase()
 		g.a=0
-		delete p0[g.b]															/*delete the old function to disable function calls on it*/
+		delete p0[g.b]														/*delete the old function to disable function calls on it*/
 		g.b=a0
 		p0.hasContext=hasContext
 		p0[a0]=p1																							/*reasign a new function name*/
@@ -101,4 +101,4 @@ if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 	};/*console.debug(m.videoIn)*/}if(e1<=7){sayHey(new CustomEvent('ohh_no',{bubbles:false,cancelable:false,detail:{outcome:text,button:e1,m_is_null:(m==null)}}))}
 };elm.forEach(el=>{el.onclick=e=>go(e)});a('[data-server]').forEach(el=>{el.onclick=e=>attenzione(e)});
 a('[id="h6"]')[0].onclick=()=>a('[href="#ce"]')[0].click()
-(()=>{g.a=3;rotate()})()																				/*add your counter for control*/
+(()=>{g.a=3;rotate()})()																	/*add your counter for control*/
