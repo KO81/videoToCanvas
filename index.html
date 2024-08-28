@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<title>video to canvas project</title>
+</head>
+<body>
+	<h4 class="card-title">Video with<u class="none">O</u>ut <strong class="text-light">&lt;</strong>video<strong class="text-light">&gt;</strong> tag <a class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 text-decoration-none lh-sm py-0 mx-3" href="/app/testarea/todo/?create_issue#create" data-bs-original-title="rapport an issue">rap. issue</a></h4>
+	<p class="card-text off-this">you have to provide video src url and image urls for poster. edit the exsample.only.how.to.call.js with your sources.</p>
+	<div class="container-fluid p-0 m-0 off-this position-relative">
+		<div id="videoStart" class="row justify-content-start py-1 px-0 m-0 bg-dark bg-gradient border border-top-0 border-start-0 rounded off-this d-print-none">
+    		<div class="col-12 bg-transparent py-1 off-this">
+    			<canvas id="badge" class="mx-auto ratio ratio-16x9 off-this" width="auto" height="auto"></canvas>
+    			<audio class="d-none" for="badge" src="" loading="lazy"></audio>
+    		</div>
+            <div class="col-11 btn-group btn-group-sm my-1 mx-auto off-this">
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-do-what="0" data-bs-original-title="test video 1">video 1</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-do-what="1" data-bs-original-title="test video 2">video 2</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="8" data-bs-original-title="disbale m object, works only if the object has been enbled before">disable</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="9" data-bs-original-title="enable m object, works only if the object has been disabled before">enable</button>
+            </div>
+            <div class="col-11 btn-group btn-group-sm my-1 mx-auto off-this">
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="3" data-bs-original-title="toggle disable internal error throwing, for the known error's only">toggle int. errors</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="0" data-bs-original-title="cause error within the object">throw error</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="1" data-bs-original-title="disable all observers">obs. off</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="2" data-bs-original-title="enable all observers">obs. on</button>
+            </div>
+            <div class="col-11 btn-group btn-group-sm my-1 mx-auto off-this">
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="4" data-bs-original-title="call Prime on the m object">call Prime</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="5" data-bs-original-title="clear the m object">clear object</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="6" data-bs-original-title="ask for help, calls the HELP class">help videoToCanvas</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="7" data-bs-original-title="ask for help, calls the HELP class">help 
+            		<strong class="d-none d-md-block off-this fw-light">CanvasSourceObj.</strong>
+            		<strong class="d-md-none fw-light off-this">C.SourceObj.</strong>
+            	</button>
+            </div>
+            <div class="col-11 btn-group btn-group-sm my-1 mx-auto off-this">
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="10" data-bs-original-title="load new video source via 'videoToCanvasObject'">new video source</button>
+            	<button class="btn bg-dark text-primary border border-top-0 border-start-0 rounded h-100 so me-1 off-this" data-server="11" data-bs-original-title="change video source, works only if the button to the left has been clicked">connect videoToCanvasObject</button>
+            </div>
+    	</div>
+	</div>
+	<script type="text/javascript">const _=(el)=>return document.getElementById(el)
+	</script>
+	<script src="exsample.only.how.to.call.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
