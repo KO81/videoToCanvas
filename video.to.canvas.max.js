@@ -5,7 +5,7 @@ c={a:(obj)=>{let a0,d;
 		for(d of Object.getOwnPropertyNames(obj)){
 			if(a0=obj[d]&&typeof a0==='object'){c.a(a0)}
 		};Object.freeze(obj);Object.seal(obj)
-	},c:{audioBitsPerSecond:128e3,videoBitsPerSecond:25e5,mimeType:b[0]},omg:{z:{},y0:0,y1:{}},lock:{},secret:{},localPrime:{},magic:{},already:{},time:{},video:{},init:['stalled','waiting','loadeddata','loadedmetadata','click','canplay','canplaythrough','emptied','ended','seeked','seeking','pause','play','progress','ratechange','volumechange','timeupdate','wheel','resize','dblclick','contextmenu','error','durationchange','load'],final:[]
+	},c:{audioBitsPerSecond:128e3,videoBitsPerSecond:25e5,mimeType:b[0]},omg:{z:{},y0:0,y1:{},vol:1},lock:{},secret:{},localPrime:{},magic:{},already:{},time:{},video:{},init:['stalled','waiting','loadeddata','loadedmetadata','click','canplay','canplaythrough','emptied','ended','seeked','seeking','pause','play','progress','ratechange','volumechange','timeupdate','wheel','resize','dblclick','contextmenu','error','durationchange','load'],final:[]
 	,error:(e,order=null)=>{let a0=new ReferenceError(e,'video.to.canvas.js');
 		if(order!=null){return isObjectNotNull(order)?eventModule(order,'fault','fault',['ReferenceError',a0.message,true]):c.final.push([order,'fault','fault',['ReferenceError',a0.message,true]])
 		}if(typeof a.w.throwError==='undefined'){throw a0}
@@ -79,11 +79,11 @@ c={a:(obj)=>{let a0,d;
 	}if(type==2){ctx.setTransform(1,0,0,1,0,0);a0=data.a;a1=data.b;
 		for(d=0;d<a0.length;d++){
 			ctx.globalAlpha=(d>0)?1:0.5;
-			(typeof ctx[a0[d]]==='function')?ctx[a0[d]](...a1[d]):ctx[a0[d]]=a1[d]}
+			typeof ctx[a0[d]]==='function'?ctx[a0[d]](...a1[d]):ctx[a0[d]]=a1[d]}
 	}if(type==3){reset(ctx)}
 },canvasProp=(ctx)=>{let d;
 	function aid(){this.name='canvasSetting';
-		for(d of ['fillStyle','filter','globalAlpha','globalCompositeOperation','imageSmoothingEnabled']){this[d]=ctx[d]}
+		for(d of ['fillStyle','filter','globalAlpha','globalCompositeOperation']){this[d]=ctx[d]}
 	}return new aid()
 },canvasAid=(order)=>{let a0=a.w?.matchMedia?.('(prefers-color-scheme:dark)')?.matches??false,a2,a3,a4,a5,d;
 	function aid(obj){a5=(obj.width<577);a2=a5?20:40;
@@ -120,8 +120,9 @@ c={a:(obj)=>{let a0,d;
 },canvasVol=(order,dare=false)=>{let a0,a1,a2;
 	if(y[order].nav){a0=y[order].aid;a1=y[order].video.media
 		drawModule(c.z(order,2),2,{a:['save','drawImage','restore'],b:[[],[a0.iconSet[a1.muted?'MUTED':'SPEAKER'],81+3*a0.factor,2*a0.factor+a0.barOffset],[]]})
-		if(dare&&a1.paused){setTimeout(()=>{canvasProg(order,a1)},50)}
-	}
+		if(a0.x>577){a2=[130,15+a0.barOffset,150,10];
+			drawModule(c.z(order,2),2,{a:['clearRect','save','fillStyle','filter','fillRect','filter','fillStyle','fillRect','restore'],b:[a2,[],a0.color,'opacity(.45)',a2,'opacity(.7)',a0.barColor,[130,15+a0.barOffset,a1.volume*150,10],[]]})
+		}if(dare&&a1.paused){setTimeout(()=>{canvasProg(order,a1)},50)}}
 },canvasNav=(order)=>{if(!y[order].video){return}let a0=canvasAid(order),a1=y[order].video.media;
 	return{a:['fillRect','drawImage','drawImage',],
 		b:[[0,a0.barOffset,a0.x,a0.barHeight],[a0.iconSet[(a1.paused||a1.ended)?'PLAY':'PAUSE'],3*a0.factor,2*a0.factor+a0.barOffset],
@@ -134,9 +135,7 @@ c={a:(obj)=>{let a0,d;
 			if(e.layerY>=a1.height-(a9?40:20)){
 				if(a6>41&&a6<81){a3.stop()											/*stop button position*/
 				}if(a6>81&&a6<121){a8.muted=(a8.muted)?false:true					/*speaker or mute button position*/
-				}if(a6>121&&a6<321){
-					if(a9){															/*volume bar or not*/
-					}
+				}if(a9&&a6>130&&a6<280){a3.volume((a6-130)/150)
 				}
 			}else{a3.seek((a8.duration/100)*a6/(a3.width/100))}
 		}else{a8.paused?a3.play():a3.pause()}
@@ -183,7 +182,7 @@ c={a:(obj)=>{let a0,d;
 		}if(a0==c.init[9]){snapshot(a2,1);canvasProg(a2,a1);snapshot(a2,0)							/*seeked*/
 		}if(a0==c.init[10]){																		/*seeking*/
 		}if(a0==c.init[23]){aid(a2)																	/*load*/
-		}if(a0==c.init[15]){																		/*volumechange*/
+		}if(a0==c.init[15]){canvasVol(a2)															/*volumechange*/
 		};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)}
 	}else{return c.error('@Enable: Object is null')}
 },methods=(obj)=>{let d=0;
@@ -229,12 +228,10 @@ c={a:(obj)=>{let a0,d;
 		}async function _volume(value=0.5){let b0=m(this),b1=null,b2;
 			if(b2=get(b0[2])){b1=false;
 				if(value>=0&&value<=1){
-					b1=true;b2.volume=value}
+					b1=true;b2.volume=value;c.omg.vol=value}
 			}return b1
 		}for(d;d<9;d++){
-			c.d(obj,['intervene','interveneEnd','mute','pause','play','seek','stop','unmute','volume'][d],[_intervene,_interveneEnd,_mute,_pause,_play,_seek,_stop,_unmute,_volume][d],false);
-		}
-	}
+			c.d(obj,['intervene','interveneEnd','mute','pause','play','seek','stop','unmute','volume'][d],[_intervene,_interveneEnd,_mute,_pause,_play,_seek,_stop,_unmute,_volume][d],false)}}
 },eventModule=(order,name,type,detail,dare=false)=>{let a0,a1,a2,a3,d=0,d0;
 	if(!_offInPrime(order)){return c.error('@Event: Event called on a null object')
 	}function detailBuilder(arr,name){a2=[detail,['object','value','outcome','result_0','result_1','result_2']];
@@ -437,7 +434,7 @@ c={a:(obj)=>{let a0,d;
 				if(isYObj(order)){offset(order)}}
 			};a0.onplay=(e)=>{c.video[order]=new aid(order,a0)
 			};a0.onloadeddata=(e)=>{b0=e.target;b1=c.video[order].video;b1.width=b0.videoWidth;b1.height=b0.videoHeight
-			};a0.onloadedmetadata=(e)=>{b0=e.target;b1=c.video[order].time.duration=b0.duration;b0.pause();b0.muted=false;
+			};a0.onloadedmetadata=(e)=>{b0=e.target;b1=c.video[order].time.duration=b0.duration;b0.pause();b0.volume=c.omg.vol;b0.muted=false;
 				resolve([true,c.video[order]]);
 				if(dare){if(isObject(order)){c.magic[order].videoIn=c.video[order];_is(order)}
 				}if(isYObj(order)){offset(order)
@@ -529,7 +526,7 @@ c={a:(obj)=>{let a0,d;
 }class CanvasSourceObject extends NAME{
 	constructor(order=null,src=null,track=null){super(new NAME('CanvasSourceObject').name);this._connect=_connect;this._source=src;this._track=track;this._src=_setSrc}
 	toString(){return  NAME.toString(this)}valueOf(){return NAME.valueOf(this)}
-};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.76,false);c.d(a.w,'PRIME',PRIME,false);
+};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.81,false);c.d(a.w,'PRIME',PRIME,false);
 for(let d of [PRIME,HELP,videoToCanvas,CanvasSourceObject]){c.a(d)
 };c.d(a.d,'captureEvents',null,false);
 self.onresize=()=>{a.r=true;if(typeof a.w._resize!=='undefined'){clearTimeout(a.w._resize)};c.x();a.w._resize=setTimeout(()=>{rb()},2e2)}
