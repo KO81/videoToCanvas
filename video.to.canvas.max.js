@@ -5,7 +5,7 @@ c={a:(obj)=>{let a0,d;
 		for(d of Object.getOwnPropertyNames(obj)){
 			if(a0=obj[d]&&typeof a0==='object'){c.a(a0)}
 		};Object.freeze(obj);Object.seal(obj)
-	},c:{audioBitsPerSecond:128e3,videoBitsPerSecond:25e5,mimeType:b[0]},omg:{z:{},y0:0,y1:{},vol:1},lock:{},secret:{},localPrime:{},magic:{},already:{},time:{},video:{},init:['stalled','waiting','loadeddata','loadedmetadata','click','canplay','canplaythrough','emptied','ended','seeked','seeking','pause','play','progress','ratechange','volumechange','timeupdate','wheel','resize','dblclick','contextmenu','error','durationchange','load'],final:[]
+	},c:{audioBitsPerSecond:128e3,videoBitsPerSecond:25e5,mimeType:b[0]},omg:{z:{},y0:0,y1:{},vol:1,muted:false},lock:{},secret:{},localPrime:{},magic:{},already:{},time:{},video:{},init:['stalled','waiting','loadeddata','loadedmetadata','click','canplay','canplaythrough','emptied','ended','seeked','seeking','pause','play','progress','ratechange','volumechange','timeupdate','wheel','resize','dblclick','contextmenu','error','durationchange','load'],final:[]
 	,error:(e,order=null)=>{let a0=new ReferenceError(e,'video.to.canvas.js');
 		if(order!=null){return isObjectNotNull(order)?eventModule(order,'fault','fault',['ReferenceError',a0.message,true]):c.final.push([order,'fault','fault',['ReferenceError',a0.message,true]])
 		}if(typeof a.w.throwError==='undefined'){throw a0}
@@ -76,7 +76,7 @@ c={a:(obj)=>{let a0,d;
 	function reset(ctx){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
 	}if(type==0){reset(ctx);a0=c.e();a0.width=data.width;a0.height=data.height;a1=a0.getContext('2d');a1.putImageData(data,0,0);ctx.scale(b,b);ctx.drawImage(a0,f.x,f.y);a0.remove();if(!i['16']){IKONS()}
 	}if(type==1&&f){ctx.setTransform(1,0,0,1,0,0);ctx.scale(b,b);ctx.drawImage(data,f.x,f.y)
-	}if(type==2){ctx.setTransform(1,0,0,1,0,0);a0=data.a;a1=data.b;
+	}if(type==2&&data){ctx.setTransform(1,0,0,1,0,0);a0=data.a;a1=data.b;
 		for(d=0;d<a0.length;d++){
 			ctx.globalAlpha=(d>0)?1:0.5;
 			typeof ctx[a0[d]]==='function'?ctx[a0[d]](...a1[d]):ctx[a0[d]]=a1[d]}
@@ -105,7 +105,7 @@ c={a:(obj)=>{let a0,d;
 			(async()=>{
 				for(d of ['width','height']){a2[d]=a1[d]
 				};a3=a2.getContext('2d');drawModule(a3,1,a0,a0.scale[0],a0.dim.video);y[order].snap=a3.getImageData(0,0,a2.width,a2.height);
-				if(a0.currentTime>0&&a0.duration!=a0.currentTime){drawModule(c.z(order,1),2,{a:['filter','putImageData'],b:['none',[y[order].snap,0,0]]})
+				if(a0.currentTime>0&&!a0.ended){drawModule(c.z(order,1),2,{a:['filter','putImageData'],b:['none',[y[order].snap,0,0]]})
 				};a2.remove()})().then(()=>canvasVol(order,true))})}
 },canvasProg=(order,video)=>{let a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0;
 	if(isYObj(order)&&y[order].nav){a0=y[order].aid;b0=(a0.factor<2)?2:1;
@@ -118,7 +118,7 @@ c={a:(obj)=>{let a0,d;
 			b:[a7,[],a0.background,'opacity(.5)',a7,'opacity(.8)',a0.color,[a3,a5,a6,190],a9,'opacity(.45)',a9,'opacity(.7)',a0.barColor,[0,a0.barOffset-10,a1,10],[]]};drawModule(a4,2,a1)
 		}
 },canvasVol=(order,dare=false)=>{let a0,a1,a2;
-	if(y[order].nav){a0=y[order].aid;a1=y[order].video.media
+	if(y[order].nav){a0=y[order].aid;a1=y[order].video.media;
 		drawModule(c.z(order,2),2,{a:['save','drawImage','restore'],b:[[],[a0.iconSet[a1.muted?'MUTED':'SPEAKER'],81+3*a0.factor,2*a0.factor+a0.barOffset],[]]})
 		if(a0.x>577){a2=[130,15+a0.barOffset,150,10];
 			drawModule(c.z(order,2),2,{a:['clearRect','save','fillStyle','filter','fillRect','filter','fillStyle','fillRect','restore'],b:[a2,[],a0.color,'opacity(.45)',a2,'opacity(.7)',a0.barColor,[130,15+a0.barOffset,a1.volume*150,10],[]]})
@@ -134,7 +134,7 @@ c={a:(obj)=>{let a0,d;
 		if(e.layerY>=a1.height-(a9?50:30)&&!(a6>0&&a6<40)){
 			if(e.layerY>=a1.height-(a9?40:20)){
 				if(a6>41&&a6<81){a3.stop()
-				}if(a6>81&&a6<121){a8.muted=(a8.muted)?false:true
+				}if(a6>81&&a6<121){a8.muted=(a8.muted)?false:true;c.omg.muted=a8.muted
 				}if(a9&&a6>130&&a6<280){a3.volume((a6-130)/150)}
 			}else{a3.seek((a8.duration/100)*a6/(a3.width/100))}
 		}else{a8.paused?a3.play():a3.pause()}
@@ -166,20 +166,20 @@ c={a:(obj)=>{let a0,d;
 		}if(dare){drawModule(c.z(order,0),3);return c.z(order,1)}
 	}if(a2=c.omg[a1.prime]){
 		if(a0==c.init[16]||a0==c.init[22]){time(a2)
-		}if(a0==c.init[12]){offset(a2);
-			for(d of [0,1,2]){drawModule(c.z(a2,d),3)
-			};aid(a2);streamer(a1,rotate(a2,true))													/*play*/
-			drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2);c.z(a2,0).globalAlpha=0
-		}if(a0==c.init[11]){c.magic[a2].randomTargetArray=y[a2].targets;rotate(a2)					/*pause*/
-		}if(a0==c.init[6]){aid(a2);time(a2);for(d of [1,2]){drawModule(c.z(a2,d),3)}				/*canplaythrough*/
-			drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2)
-		}if(a0==c.init[2]||a0==c.init[3]){_is(a2);time(a2)											/*loadeddata & loadedmetadata*/
-		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);								/*emptied, ended or error*/
-			if(a0==c.init[8]){c.z(a2,0).canvas.stop().then(out=>{
-					if(out&&y[a2].nav){y[a2].nav=canvasNav(a2)
-						drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2,true)}})}
-		}if(a0==c.init[9]){snapshot(a2,1);canvasProg(a2,a1);snapshot(a2,0)							/*seeked*/
-		}if(a0==c.init[10]){																		/*seeking*/
+		}if(a0==c.init[12]){aid(a2);
+			for(d of [1,2]){drawModule(c.z(a2,d),3)
+			};streamer(a1,rotate(a2,true));drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2);
+			c.z(a2,0).globalAlpha=0  																					/*play*/
+		}if(a0==c.init[11]){c.magic[a2].randomTargetArray=y[a2].targets;rotate(a2)										/*pause*/
+		}if(a0==c.init[6]){aid(a2);time(a2);for(d of [1,2]){drawModule(c.z(a2,d),3)}									/*canplaythrough*/
+			if(y[a2].nav){drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2)}
+		}if(a0==c.init[2]||a0==c.init[3]){_is(a2);time(a2)																/*loadeddata & loadedmetadata*/
+		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);													/*emptied, ended or error*/
+			if(a0==c.init[8]){
+				c.z(a2,0).canvas.stop().then(out=>{
+					if(out&&y[a2].nav){y[a2].nav=canvasNav(a2);drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2,true)}})}
+		}if(a0==c.init[9]){snapshot(a2,1);canvasProg(a2,a1);snapshot(a2,0)												/*seeked*/
+		}if(a0==c.init[10]){																							/*seeking*/
 		}if(a0==c.init[23]){aid(a2)
 		}if(a0==c.init[15]){canvasVol(a2)
 		};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)}
@@ -428,7 +428,7 @@ c={a:(obj)=>{let a0,d;
 				if(isYObj(order)){offset(order)}}
 			};a0.onplay=(e)=>{c.video[order]=new aid(order,a0)
 			};a0.onloadeddata=(e)=>{b0=e.target;b1=c.video[order].video;b1.width=b0.videoWidth;b1.height=b0.videoHeight
-			};a0.onloadedmetadata=(e)=>{b0=e.target;b1=c.video[order].time.duration=b0.duration;b0.pause();b0.volume=c.omg.vol;b0.muted=false;
+			};a0.onloadedmetadata=(e)=>{b0=e.target;b1=c.video[order].time.duration=b0.duration;b0.pause();b0.volume=c.omg.vol;b0.muted=c.omg.muted;
 				resolve([true,c.video[order]]);
 				if(dare){if(isObject(order)){c.magic[order].videoIn=c.video[order];_is(order)}
 				}if(isYObj(order)){offset(order)
@@ -520,7 +520,7 @@ c={a:(obj)=>{let a0,d;
 }class CanvasSourceObject extends NAME{
 	constructor(order=null,src=null,track=null){super(new NAME('CanvasSourceObject').name);this._connect=_connect;this._source=src;this._track=track;this._src=_setSrc}
 	toString(){return  NAME.toString(this)}valueOf(){return NAME.valueOf(this)}
-};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.84,false);c.d(a.w,'PRIME',PRIME,false);
+};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.86,false);c.d(a.w,'PRIME',PRIME,false);
 for(let d of [PRIME,HELP,videoToCanvas,CanvasSourceObject]){c.a(d)
 };c.d(a.d,'captureEvents',null,false);
 self.onresize=()=>{a.r=true;if(typeof a.w._resize!=='undefined'){clearTimeout(a.w._resize)};c.x();a.w._resize=setTimeout(()=>{rb()},2e2)}
