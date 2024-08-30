@@ -133,10 +133,9 @@ c={a:(obj)=>{let a0,d;
 	}if(a0=='click'&&a2=='CANVAS'&&a5&&a1.z===undefined&&y[a4].nav!=null){a1.z=0;a3=y[a4].targets[0].canvas;a6=e.layerX;a8=y[a4].video.media;a9=(a3.width>577);
 		if(e.layerY>=a1.height-(a9?50:30)&&!(a6>0&&a6<40)){
 			if(e.layerY>=a1.height-(a9?40:20)){
-				if(a6>41&&a6<81){a3.stop()											/*stop button position*/
-				}if(a6>81&&a6<121){a8.muted=(a8.muted)?false:true					/*speaker or mute button position*/
-				}if(a9&&a6>130&&a6<280){a3.volume((a6-130)/150)
-				}
+				if(a6>41&&a6<81){a3.stop()
+				}if(a6>81&&a6<121){a8.muted=(a8.muted)?false:true
+				}if(a9&&a6>130&&a6<280){a3.volume((a6-130)/150)}
 			}else{a3.seek((a8.duration/100)*a6/(a3.width/100))}
 		}else{a8.paused?a3.play():a3.pause()}
 		a6=null;setTimeout(()=>{a1.z=undefined},50);
@@ -166,14 +165,14 @@ c={a:(obj)=>{let a0,d;
 		try{let b0=[...y[order].targets];y[order].targets=[b0[0],b0[2],b0[1]]}catch(e){
 		}if(dare){drawModule(c.z(order,0),3);return c.z(order,1)}
 	}if(a2=c.omg[a1.prime]){
-		if(a0==c.init[16]||a0==c.init[22]){time(a2)													/*timeupdate & durationchange*/
+		if(a0==c.init[16]||a0==c.init[22]){time(a2)
 		}if(a0==c.init[12]){offset(a2);
 			for(d of [0,1,2]){drawModule(c.z(a2,d),3)
 			};aid(a2);streamer(a1,rotate(a2,true))													/*play*/
-			if(c.z(a2,0).canvas.width<577&&y[a2].nav){
-				drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2)}	
-		}if(a0==c.init[11]){c.magic[a2].randomTargetArray=y[a2].targets;offset(a2);					/*pause*/
-		}if(a0==c.init[6]){aid(a2);time(a2)															/*canplaythrough*/
+			drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2);c.z(a2,0).globalAlpha=0
+		}if(a0==c.init[11]){c.magic[a2].randomTargetArray=y[a2].targets;rotate(a2)					/*pause*/
+		}if(a0==c.init[6]){aid(a2);time(a2);for(d of [1,2]){drawModule(c.z(a2,d),3)}				/*canplaythrough*/
+			drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2)
 		}if(a0==c.init[2]||a0==c.init[3]){_is(a2);time(a2)											/*loadeddata & loadedmetadata*/
 		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);								/*emptied, ended or error*/
 			if(a0==c.init[8]){c.z(a2,0).canvas.stop().then(out=>{
@@ -181,20 +180,14 @@ c={a:(obj)=>{let a0,d;
 						drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2,true)}})}
 		}if(a0==c.init[9]){snapshot(a2,1);canvasProg(a2,a1);snapshot(a2,0)							/*seeked*/
 		}if(a0==c.init[10]){																		/*seeking*/
-		}if(a0==c.init[23]){aid(a2)																	/*load*/
-		}if(a0==c.init[15]){canvasVol(a2)															/*volumechange*/
+		}if(a0==c.init[23]){aid(a2)
+		}if(a0==c.init[15]){canvasVol(a2)
 		};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)}
 	}else{return c.error('@Enable: Object is null')}
 },methods=(obj)=>{let d=0;
 	if(typeof obj.play==='undefined'){
 		function aid(obj){let a0=c.check(obj);return(a0!=null)?(y[a0].video)?[c.magic[a0].enabled,c.magic[a0].ready,y[a0]]:null:null
-		}function get(obj,num=0){let a0;
-			if(num==0){a0=(obj.video)?obj.video.media:null
-			}if(num==1){a0=(obj.poster)?obj.poster:null
-			}if(num==2){a0=(obj.dim.video)?obj.dim.video:null
-			}if(num==3){a0=(obj.dim.poster)?obj.dim.poster:null
-			}if(num==4){a0=(obj.dim)?{x:obj.dim.x,y:obj.dim.y}:null
-			}return a0
+		}function get(obj){return(obj.video)?obj.video.media:null
 		}function m(p){let b0=aid(p);
 			return(b0!=null&&!c.locked(b0[2]))?b0:null
 		}async function _intervene(){let b0,b1=null,b2;
@@ -219,8 +212,9 @@ c={a:(obj)=>{let a0,d;
 			if(b2=get(b0[2])){b1=false;
 				if(toTime<b2.duration){b1=true;b2.currentTime=toTime}
 			}return b1
-		}async function _stop(){let b0=m(this),b1=null,b2,b3,b4;
-			if(b2=get(b0[2])){b2.pause();b2.currentTime=0;b1=true
+		}async function _stop(){let b0=m(this),b1=null,b2,d;
+			if(b2=get(b0[2])){c.z(c.check(b2),0).globalAlpha=1
+				b2.pause();b2.currentTime=0;b1=true
 			}return b1
 		}async function _unmute(){let b0=aid(this),b1=null,b2;
 			if(b2=get(b0[2])){b2.muted=false;b1=!b2.muted
@@ -526,10 +520,9 @@ c={a:(obj)=>{let a0,d;
 }class CanvasSourceObject extends NAME{
 	constructor(order=null,src=null,track=null){super(new NAME('CanvasSourceObject').name);this._connect=_connect;this._source=src;this._track=track;this._src=_setSrc}
 	toString(){return  NAME.toString(this)}valueOf(){return NAME.valueOf(this)}
-};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.81,false);c.d(a.w,'PRIME',PRIME,false);
+};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.84,false);c.d(a.w,'PRIME',PRIME,false);
 for(let d of [PRIME,HELP,videoToCanvas,CanvasSourceObject]){c.a(d)
 };c.d(a.d,'captureEvents',null,false);
 self.onresize=()=>{a.r=true;if(typeof a.w._resize!=='undefined'){clearTimeout(a.w._resize)};c.x();a.w._resize=setTimeout(()=>{rb()},2e2)}
 HTMLCanvasElement.prototype.captureStream=null;
-a.w.silver=(e)=>{return [c.c,c.localPrime,c.already,c.magic,c.secret,c.omg,c.final,y,c.video,i]['clamsofyvi'.indexOf(e)]}/*<== only while not in production*/
 export{videoToCanvas,CanvasSourceObject,HELP}
