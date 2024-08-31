@@ -113,10 +113,10 @@ c={a:(obj)=>{let a0,d;
 		a8=a4.measureText(a3).width;a5=a0.x-5-a8;a6=2*a0.factor+a0.barOffset+a0.fontsize;
 		a7=[a5-8,a6-(22/b0),a8+10,24/b0];
 		a9=[0,a0.barOffset-10,a0.x,10];
-		a1={
-			a:['clearRect','save','fillStyle','filter','fillRect','filter','fillStyle','fillText','clearRect','filter','fillRect','filter','fillStyle','fillRect','restore'],
+		a1={a:['clearRect','save','fillStyle','filter','fillRect','filter','fillStyle','fillText','clearRect','filter','fillRect','filter','fillStyle','fillRect','restore'],
 			b:[a7,[],a0.background,'opacity(.5)',a7,'opacity(.8)',a0.color,[a3,a5,a6,190],a9,'opacity(.45)',a9,'opacity(.7)',a0.barColor,[0,a0.barOffset-10,a1,10],[]]};drawModule(a4,2,a1)
-		}
+	}if(video.currentTime<.5){a0=c.z(order,1);a3=a0.canvas;a1=a3.height;a2=video.scale[0]*video.dim.video.x;
+		drawModule(a0,2,{a:['globalAlpha','clearRect','clearRect'],b:[1,[0,0,a2,a1],[a3.width-a2,0,a2,a1]]})}
 },canvasVol=(order,dare=false)=>{let a0,a1,a2;
 	if(y[order].nav){a0=y[order].aid;a1=y[order].video.media;
 		drawModule(c.z(order,2),2,{a:['save','drawImage','restore'],b:[[],[a0.iconSet[a1.muted?'MUTED':'SPEAKER'],81+3*a0.factor,2*a0.factor+a0.barOffset],[]]})
@@ -128,8 +128,9 @@ c={a:(obj)=>{let a0,d;
 		b:[[0,a0.barOffset,a0.x,a0.barHeight],[a0.iconSet[(a1.paused||a1.ended)?'PLAY':'PAUSE'],3*a0.factor,2*a0.factor+a0.barOffset],
 			[a0.iconSet.STOP,40+3*a0.factor,2*a0.factor+a0.barOffset]
 		]}
-},canvasEvent=(e)=>{let a0=e.type,a1=e.target,a2=a1.nodeName,a3=[],a4=c.time[a1.time],a5=(isYObj(a4)&&isVObj(a4))?c.magic[a4]:null,a6=null,a7=['navHidden','navShown'],a8,a9,d;snapshot(a4,1);
-	if(a5){if(!'video' in y[a4].dim){offset(a4)}
+},canvasEvent=(e)=>{let a0=e.type,a1=e.target,a2=a1.nodeName,a3=[],a4=c.time[a1.time],a5=(isYObj(a4)&&isVObj(a4))?c.magic[a4]:null,a6=null,a7=['navHidden','navShown'],a8,a9,d;
+	function cid(){for(d of [[3],[2,canvasNav(a4)]]){drawModule(c.z(a4,2),...d)};canvasVol(a4)
+	}if(a5){if(!'video' in y[a4].dim){offset(a4)}
 	}if(a0=='click'&&a2=='CANVAS'&&a5&&a1.z===undefined&&y[a4].nav!=null){a1.z=0;a3=y[a4].targets[0].canvas;a6=e.layerX;a8=y[a4].video.media;a9=(a3.width>577);
 		if(e.layerY>=a1.height-(a9?50:30)&&!(a6>0&&a6<40)){
 			if(e.layerY>=a1.height-(a9?40:20)){
@@ -138,9 +139,7 @@ c={a:(obj)=>{let a0,d;
 				}if(a9&&a6>130&&a6<280){a3.volume((a6-130)/150)}
 			}else{a3.seek((a8.duration/100)*a6/(a3.width/100))}
 		}else{a8.paused?a3.play():a3.pause()}
-		a6=null;setTimeout(()=>{a1.z=undefined},50);
-		for(d of [[3],[2,canvasNav(a4)]]){drawModule(c.z(a4,2),...d)
-		};canvasVol(a4)
+		a6=null;setTimeout(()=>{a1.z=undefined;cid();if(a8.paused){snapshot(a4,1)}},1e2)
 	}if(a0=='mouseenter'){if(!i['16']){IKONS()}
 		if(a2=='CANVAS'&&a5){a6=1;y[a4].nav=canvasNav(a4)}
 	}if(a0=='mouseleave'&&a2=='CANVAS'&&a5){
@@ -178,7 +177,7 @@ c={a:(obj)=>{let a0,d;
 			if(a0==c.init[8]){
 				c.z(a2,0).canvas.stop().then(out=>{
 					if(out&&y[a2].nav){y[a2].nav=canvasNav(a2);drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2,true)}})}
-		}if(a0==c.init[9]){snapshot(a2,1);canvasProg(a2,a1);snapshot(a2,0)												/*seeked*/
+		}if(a0==c.init[9]&&a1.paused){canvasProg(a2,a1)																	/*seeked*/
 		}if(a0==c.init[10]){																							/*seeking*/
 		}if(a0==c.init[23]){aid(a2)
 		}if(a0==c.init[15]){canvasVol(a2)
@@ -348,9 +347,9 @@ c={a:(obj)=>{let a0,d;
 		if(a0==null){c.error('@Object: Audio element not found',order)}
 	}if(typeof a0==='undefined'&&obj.parentNode.querySelector('AUDIO')==null){a0=a.d.createElement('AUDIO');(obj.parentNode.appendChild(a0))?a0.controls=true:c.error('@Object: Could not create audio element',order)
 	}if(a0==null){return c.error('@Object: Could not find or create audio element',order)
-	}function aid(obj){this.media=obj;this.name='audioObject';
+	}function aid(obj){this.audioctx=new a.w.AudioContext();this.media=obj;this.name='audioObject';
 		for(d of ['controls','muted','paused','volume','srcObject']){this[d]=obj[d]}
-	};c.already[order]=new aid(a0);return obj.id
+	};c.already[order]=new aid(a0);c.already[order].audioctx.suspend();return obj.id
 },cosinus=(obj,config=null,src=null,poster=null,frames=25)=>{
 	if(obj==null||obj.nodeName!='CANVAS'){return c.error('@Start: Object is null or Object.nodeName is not "CANVAS"')
 	}let order=a.c(),dim=obj.getBoundingClientRect(),a0,d;obj.width=dim.width;obj.height=dim.height;
@@ -520,7 +519,7 @@ c={a:(obj)=>{let a0,d;
 }class CanvasSourceObject extends NAME{
 	constructor(order=null,src=null,track=null){super(new NAME('CanvasSourceObject').name);this._connect=_connect;this._source=src;this._track=track;this._src=_setSrc}
 	toString(){return  NAME.toString(this)}valueOf(){return NAME.valueOf(this)}
-};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.86,false);c.d(a.w,'PRIME',PRIME,false);
+};c.d(HELP,'version',2.2,false);c.d(PRIME,'version',6.89,false);c.d(a.w,'PRIME',PRIME,false);
 for(let d of [PRIME,HELP,videoToCanvas,CanvasSourceObject]){c.a(d)
 };c.d(a.d,'captureEvents',null,false);
 self.onresize=()=>{a.r=true;if(typeof a.w._resize!=='undefined'){clearTimeout(a.w._resize)};c.x();a.w._resize=setTimeout(()=>{rb()},2e2)}
