@@ -6,6 +6,7 @@ this one does.
 2. It automatically resizes and scales the content on resize.
 > Comes with build in icons, ['PLAY', 'PAUSE', 'STOP', 'MUTED', 'SPEAKER'], by a set of [16, 32] pixels, by a set of ['dark', 'light']
 3. Both icons and progress bar are drawn on the HTMLCanvasElement, so no extra besides an maybe later canceled HTMLAudioElement is required within the markup itself.
+> ***HTMLAudioElement is no longer required !!!***
 4. HTMLCanvasElement have costum methods applied to it.
 5. It comes with a build in event listener disguise feature, so nobody but you knows what this event does.
 6. by choosing the internal event element, nobody can cancel the event listener in the console window.
