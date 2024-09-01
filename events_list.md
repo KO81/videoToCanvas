@@ -27,7 +27,7 @@
 #### additional events
 pushed into a __new c.init__ array upon creation of a new 'videoToCanvas' object to build a new 'disguiseObject'.
 
-- > "testConfigCalled" most likely to be removed from future releases
+- > ~~"testConfigCalled" most likely to be removed from future releases~~ is removed for good.
 - "isPrimeCalled"
 - "isPreventedPrimeCalled"
 - "interveneStarted"
