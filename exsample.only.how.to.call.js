@@ -62,7 +62,7 @@ if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 	poster='/api/src/c/?what=img&time=natm&type=quiet&that='+['DSC_0000_BURST20201108133752545-min.JPG','c-min.jpg'][e1];b(e0,[1,'active'])
 	videoSource='/api/src/c/?what=vid&time=natm&type=quiet&that=1.'+['mp4','webm'][e1]
 	if(ce.classList.contains('show')){a('[href="#ce"]')[0].click()
-	}if(m==null){m=n._start(obj,null,false?null:videoSource,poster,20);event=m.disguise.event
+	}if(m==null){m=n._start(obj,false?null:videoSource,poster,20);event=m.disguise.event
 		eventArray=[]																								/* disguised event name*/
 		for(d of Object.keys(event)){eventArray.push(event[d])
 		}
