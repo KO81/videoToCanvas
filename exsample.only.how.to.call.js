@@ -107,7 +107,7 @@ if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 		};n._setPoster(m.order,poster,true)
 	};elm.forEach(el=>{for(d of e2){b(el,[0,d])}if(c(el,'active')){for(d of e2){b(el,[1,d])};b(e0,[0,'active'])}})
 }function attenzione(e){let e0=e.target,e1=parseInt(e0.dataset.server),text='m is null';rotate();videoArr.unshift(videoArr.pop());
-	function button(dare=true){let d;for(d of [10,11]){a('[data-server]')[d].disabled=dare}
+	function button(dare=true){let d;for(d of [7,8]){a('[data-server]')[d].disabled=dare}
 	}if(m!=null||'67'.includes(e1)){/*no reason, die Картофель kalt zu essen*/
 		videoSource='/api/src/c/?what=vid&time=natm&type=quiet&that='+videoArr[0];
 		switch(e1){
