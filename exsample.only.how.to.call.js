@@ -42,7 +42,7 @@ const p0=HTMLCanvasElement.prototype,p1=p0.getContext											/*taking backup 
 //Object.defineProperty(p0,'captureStream',{value:null,writable:false})									/*disabling the captureStream function*/
 
 var newObject,hidden,eventArray,poster,videoSource,elm=a('[data-do-what]'),obj=_('badge'),n=new videoToCanvas(),
-	m=null,event,d,pretend,hasContext=0,srcObj=new CanvasSourceObject(),videoArr=['4.mp4','5.mp4','6.mp4','trailer.mp4'];
+	m=null,event,d,pretend,hasContext=0,srcObj=new CanvasSourceObject(),videoArr=['4.mp4','5.mp4','6.mp4','trailer.mp4'],videoArr1=['new_video_1.mp4','trailer.mp4','6.mp4','4.mp4'];
 
 //window.throwError='is not undefined'													/*disables throw error within m object*/
 //obj.addEventListener('testConfigCalled',e=>sayHey(e),{capture:true})									/* event called by name*/
@@ -58,6 +58,32 @@ if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 		p0[a0]=p1																							/*reasign a new function name*/
 		p0.getContext=function(type){this.hasContext++;return this[a0](type)}
 	};g.a++
+}function playlist(e){videoSource='/api/src/c/?what=vid&time=natm&type=quiet&that='+videoArr1[0]
+	if(e.type==event.ended){let newVideo=playlistobject[Object.keys(playlistobject)[0]]
+		if(videoSource in playlistobject){
+			newVideo=playlistobject[videoSource]	
+		};newVideo._connect(m.order,newVideo.order)
+			obj.play().then(out=>{
+				if(out){videoArr1.unshift(videoArr1.pop());
+					console.log('out is ',out,'\nobj is a',obj.nodeName);
+					obj.volume(Math.random()*1)
+					obj.seek(m.videoIn.time.duration*Math.random())
+				}
+			})
+	}if(e.type==event.ended||e.type==event.play){
+		if(videoSource in playlistobject){return
+		}for(d of videoArr1){videoSource='/api/src/c/?what=vid&time=natm&type=quiet&that='+d;
+			(async()=>{
+				await srcObj._src(null,videoSource).then(p=>{
+					if(p[0]){
+						playlistobject[videoSource]=p[1]
+					}else{
+						console.log(videoSource,' <= has failed');
+					}
+				}).catch(er=>console.log(er))
+			})()
+		}
+	}
 }function go(e){let e0=e.target,e1=parseInt(e0.dataset.doWhat),e2=['disabled','text-warning'];rotate()
 	poster='/api/src/c/?what=img&time=natm&type=quiet&that='+['DSC_0000_BURST20201108133752545-min.JPG','c-min.jpg'][e1];b(e0,[1,'active'])
 	videoSource='/api/src/c/?what=vid&time=natm&type=quiet&that=1.'+['mp4','webm'][e1]
@@ -71,7 +97,7 @@ if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 															/*if true, the events getting emitted by the m.event element, ergo uncancellable*/
 		console.debug(n,m,srcObj)
 		for(d of eventArray){newObject=hidden?m.event:obj
-			newObject.addEventListener(d,e=>{sayHey(e)},{capture:true})										/* event called by disguised name*/
+			newObject.addEventListener(d,e=>{playlist(e);sayHey(e)},{capture:true})								/* event called by disguised name*/
 		};newObject.addEventListener(event.posterSet,()=>{n._enable(m.order)},{capture:true,once:true})
 	}else{sayHey(new CustomEvent('knock_knock',{bubbles:false,cancelable:false,detail:{order:m.order,enabled:m.enabled,src:m.src,poster:m.poster}}))
 		if(e1==0){
@@ -89,10 +115,7 @@ if(screen.orientation.type=='portrait-primary'||screen.width<=650){
 			case 1:m.observers._disconnectAll();text='observers are off';break;
 			case 2:m.observers._observeAll();text='observers are on';break;
 			case 3:window.throwError=(typeof window.throwError==='undefined')?'is not undefined':undefined;text=(typeof window.throwError==='undefined');break;
-			case 4:PRIME.isPrime(m.order);text='Prime called';break;
-			case 5:n._clear(m.order);text='m object cleared';break;
-			case 6:HELP.prototype.explain('videoToCanvas');text='Help called';break;
-			case 7:HELP.prototype.explain('CanvasSourceObject');text='Help called';break;
+			case 5:n._clear(m.order);text='m object cleared';alert.purpose('once cleared you can\'t reenable it.','danger');break;
 			case 8:n._disable(m.order);text='';break;
 			case 9:n._enable(m.order);text='';break;
 			case 10:button();readOut('CanvasSourceObject started',true,3);srcObj._src(null,videoSource).then(p=>{newVideo=p[1];button(false);readOut('CanvasSourceObject completed',true,3)}).catch(e=>console.debug(e));break;
