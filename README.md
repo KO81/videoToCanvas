@@ -22,3 +22,22 @@ this one does.
 13. Independable functions, All functions are written in such a manner, that they are independable form other functions. So if one function is failing or has no return, only functions that are called via this function doesn't get executed, while all others will function as surposed.
 14. You can enable or disable the project at any time.
 This and many more features are already within this project.
+# versions
+standart == minimized
+- This version will have all classes and functions.
+- Will include PRIME, NAME & HELP, and functions which only are exposed to them.
+- filename exsample : __filename__.js
+
+max
+- Same as 'standart', but designed to be more readable.
+- Please note! This version will use more bandwidth, since it is quite bigger then the 'standart' version.
+- filename exsample : __filename__.max.js
+
+standart trimmed
+- This version will not have all classes and functions, only necessary functions will be keeped.
+- Will not include PRIME, NAME & HELP, and functions which only are exposed to them.
+- filename exsample : __filename__.trim.js
+
+max trimmed
+- Same as 'standart trimmed', but designed to be more readable.
+- filename exsample : __filename__.trim.max.js
