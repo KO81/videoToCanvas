@@ -1,6 +1,5 @@
 "use strict"/*author: Christian Feilert*/
-const a={d:document,w:window,c:()=>{return Date.now()*Math.random()},l:location,r:false,s:null
-},y={},i={},b=['video/webm','video/mp4'],
+const a={d:document,w:window,c:()=>{return Date.now()*Math.random()},l:location,r:false,s:null},y={},i={},
 c={a:(obj)=>{let a0,d;
 		for(d of Object.getOwnPropertyNames(obj)){
 			if(a0=obj[d]&&typeof a0==='object'){c.a(a0)}
@@ -153,6 +152,14 @@ c={a:(obj)=>{let a0,d;
 	!video.paused?setTimeout(()=>{
 	    streamer(video,ctx)
 	 },video.interval):video.ended?drawModule(ctx,3):null
+},videoFailed=(order,text=null)=>{if(text==null){text='source load failure'}
+	let a0=c.z(order,0),a1=a0.measureText(text).width,a2=a0.canvas,a3='error'+c.hex(btoa(order)),a4,a5=[a2.getClientRects()[0],a2.parentNode.getBoundingClientRect()],d;
+	if(a4=a.d.getElementById(a3)){a4.remove()};a4=c.e();a4.id=a3;
+	for(d of ['width','height']){a4[d]=a2[d]
+	};a4.style='position:absolute!important;left:'+(a5[0].left-a5[1].left)+'px!important;top:'+(a5[0].top-a5[1].top)+'px!important;';
+	a2.parentNode.append(a4);
+	drawModule(a4.getContext('2d'),2,{a:['font','letterSpacing','fillStyle','fillRect','fillStyle','fillText'],b:['24px serif','2px','#000000',[a2.width-200,0,200,32],'#ffffff',[text,a2.width+a1-(190+a1),26,180]]});
+	setTimeout(()=>{a4.remove()},5e3)
 },videoEvents=(e)=>{let a0=e.type,a1=e.target,a2=null,a3,a4,d;
 	function aid(a2){offset(a2);if(!c.w(a2)&&c.magic[a2].enabled){attach(a2,true)}if(a2 in y){a3=y[a2].video;a1.height=a3.media.videoHeight;a3.media.scale=c.calc(a3,y[a2].dim);y[a2].scale=a3.media.scale[0];a3.media.interval=Math.round(1e3/y[a2].frames)}
 	}function time(a2){let b0=a1.currentTime;try{y[a2].text.a=human(b0);y[a2].text.b=human(a1.duration-b0)}catch(e){};canvasProg(a2,a1)
@@ -164,18 +171,17 @@ c={a:(obj)=>{let a0,d;
 		}if(a0==c.init[12]){a1.muted=c.y(1);a1.volume=c.y(0);aid(a2);
 			for(d of [1,2]){drawModule(c.z(a2,d),3)
 			};streamer(a1,rotate(a2,true));drawModule(c.z(a2,2),2,y[a2].nav);
-			canvasVol(a2);c.z(a2,0).globalAlpha=0																		/*play*/
-		}if(a0==c.init[11]){rotate(a2);c.magic[a2].randomTargetArray=y[a2].targets  									/*pause*/
+			canvasVol(a2);c.z(a2,0).globalAlpha=0
+		}if(a0==c.init[11]){rotate(a2);c.magic[a2].randomTargetArray=y[a2].targets
 			if(y[a2].nav&&a1.currentTime==0){drawModule(c.z(a2,2),2,y[a2].nav)}
-		}if(a0==c.init[6]){aid(a2);time(a2);for(d of [1,2]){drawModule(c.z(a2,d),3)}									/*canplaythrough*/
+		}if(a0==c.init[6]){aid(a2);time(a2);for(d of [1,2]){drawModule(c.z(a2,d),3)}
 			if(a2 in y&&y[a2].nav){drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2)}
-		}if(a0==c.init[2]||a0==c.init[3]){_is(a2);time(a2)																/*loadeddata & loadedmetadata*/
-		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);													/*emptied, ended or error*/
+		}if(a0==c.init[2]||a0==c.init[3]){_is(a2);time(a2)
+		}if(a0==c.init[7]||a0==c.init[8]||a0==c.init[21]){offset(a2);
 			if(a0==c.init[8]){
 				c.z(a2,0).canvas.stop().then(out=>{
 					if(out&&y[a2].nav){y[a2].nav=canvasNav(a2);drawModule(c.z(a2,2),2,y[a2].nav);canvasVol(a2,true)}})}
-		}if(a0==c.init[9]&&a1.paused){canvasProg(a2,a1)																	/*seeked*/
-		}if(a0==c.init[10]){																							/*seeking*/
+		}if(a0==c.init[9]&&a1.paused){canvasProg(a2,a1)
 		}if(a0==c.init[23]){aid(a2)
 		}if(a0==c.init[15]){canvasVol(a2)
 		};event(a2,c.init.indexOf(a0));if(a1.height==0){aid(a2)}
@@ -421,7 +427,7 @@ c={a:(obj)=>{let a0,d;
 				if(dare){if(isObject(order)){c.magic[order].videoIn=c.video[order];_is(order)}
 				}if(isYObj(order)){offset(order)
 				};c.d(a0,'prime',btoa(c.hex(String(c.video[order].order))),true)
-			};a0.onerror=()=>{if(dare){c.error('@setSrc: Video load failure',order);a0.remove()};resolve([false,null]);_is(order)
+			};a0.onerror=()=>{if(dare){c.error('@setSrc: Video load failure',order);a0.remove()};videoFailed(order);resolve([false,null]);_is(order)
 			};(async()=>{
 				await fetch(url).then(src=>src.blob()).then(src=>{a0.src=URL.createObjectURL(src);return a0}).then(a0=>a0.play()).catch(e=>{resolve([false,null])})
 			})()
@@ -474,7 +480,7 @@ c={a:(obj)=>{let a0,d;
 }class CanvasSourceObject{
 	constructor(order=null,src=null,track=null){this.name='CanvasSourceObject';this._connect=_connect;this._source=src;this._track=track;this._src=_setSrc}
 	toString(){return 'CanvasSourceObject'}valueOf(){return 'CanvasSourceObject'}
-};c.d(a.w,'PRIME',{},true);c.d(a.w.PRIME,'version',6.93,false);
+};c.d(a.w,'PRIME',{},true);c.d(a.w.PRIME,'version',6.96,false);
 for(let d of [videoToCanvas,CanvasSourceObject]){c.a(d)
 };c.d(a.d,'captureEvents',null,false);
 self.onresize=()=>{a.r=true;if(typeof a.w._resize!=='undefined'){clearTimeout(a.w._resize)};c.x();a.w._resize=setTimeout(()=>{rb()},2e2)}
