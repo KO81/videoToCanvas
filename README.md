@@ -1,5 +1,6 @@
 # videoToCanvas
 script to play videos via a provided HTMLCanvasElement
+![Screenshot of a videoToCanvas object in action.](https://drive.google.com/uc?export=view&id=1W5m9U9H7SyVR-7xdv2qL3xG4vHt4aHGY)
 # Well you might think, any body can do this.
 this one does.
 1. aligns both the poster and video centered within the HTMLCanvasElement. It automatically scales both to fit the entire content into the HTMLCanvasElement.
