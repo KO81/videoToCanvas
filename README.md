@@ -22,6 +22,16 @@ this one does.
 13. Independable functions, All functions are written in such a manner, that they are independable form other functions. So if one function is failing or has no return, only functions that are called via this function doesn't get executed, while all others will function as surposed.
 14. You can enable or disable the project at any time.
 This and many more features are already within this project.
+
+## __read more__
+### mozilla pdf and chrome pdf
+[![mozilla pdf image](https://drive.google.com/uc?export=view&id=1K5Y_H4NV7F3bb-q28_UmeC07ahx1C58Y "video to canvas mozilla pdf")](https://drive.google.com/file/d/1MAE2STSTWwmOM6e7uiJmWdTAxhz9CK2O/view?usp=sharing)
+[![chrome pdf image](https://drive.google.com/uc?export=view&id=13otbfrTgu5_u6m7gn9Z39KH2JimlRWpf "video to canvas chrome pdf")](https://drive.google.com/file/d/1vK_-tLTMjFFm4gt4rMoTX3uExVLShDee/view?usp=sharing)
+
+mozilla pdf has a size of 2.6 mb, has a lower resolution.
+
+chrome pdf has a size of 17.1 mb, has a higher resolution.
+
 # versions
 standart == minimized
 - This version will have all classes and functions.
@@ -182,3 +192,16 @@ object with all details geathered about the video source
 - _source will always be a blob for easier handling within
 
 - _connect function with that function you can connect a new ``CanvasSourceObject``
+
+# about the ``CanvasSourceObject`` 
+![Screenshot of CanvasSourceObject.](https://drive.google.com/uc?export=view&id=1sWooxqQW-S9kEI0jeP6ks1eBmtC05bnb)
+
+_connect function with that function you can connect a new ``CanvasSourceObject`` to your ``videoToCanvasSourceObject``
+
+_source object will be filled by the ``_src`` function.
+
+_track is yet unused but will in later PRIME versions handle sub text tracks objects. 
+
+# easter egg $${\color{yellow}prototype}$$ $${\color{blue}function's}$$ 
+
+there are some nifty $${\color{yellow}prototype}$$ functions build in, have fun coding.
