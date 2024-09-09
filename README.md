@@ -203,6 +203,22 @@ _source object will be filled by the ``_src`` function.
 
 _track is yet unused but will in later PRIME versions handle sub text tracks objects. 
 
+# about the ``HTMLCanvasElement`` costum methods
+those are async functions without an actual promise, this done only for you can run a `HTMLCanvasElement`.`play()`.`then` function based on the outcome of the method.
+![Screenshot of a canvas costum methods.](https://drive.google.com/uc?export=view&id=11Y0WWewFOqnglUxuWczt0_8r_rxB6laG)
+
+| method                | method does                                                       |
+|-----------------------|------------------------------------------------------------------:|
+|intervene()	          |will pause the canvas playing video element (if not paused already), and sets a lock on the lightweight renderObject. If called, more than one time on the object, it will throw an interveneError on your or all known Prime objects.It will return an array, with status and a new secret float. Which is needed later, to unlock the canvas methods.|
+|interveneEnd(float)    |will unlock the lightweight renderObject, if the right secret float was past, otherwise it will throw an interveneError on your or all known Prime objects.Please Note! If you should forget to run this function before the disabling function, ca. ~256 bites of data will not be garbage collected.|
+|mute()	                |will mute the canvas playing video element. It will return either null, if intervened, or if the canvas playing video element is muted or not.|
+|pause()	              |will pause the canvas playing video element. It will return either null, if intervened, or if the canvas playing video element is paused or not.|
+|play()	                |will try to play the canvas playing video element. It will return either null, if intervened, or if the canvas playing video element is playing or not.|
+|seek(toTime=0)	        |will try to seek to the currentTime value given by the toTime argument of the canvas playing video element. It will return either null, if intervened, or if the canvas playing video element was seeked to or not.|
+|volume(value=0.5)	    |will try to set the volume to the canvas playing video element. It will return either null, if intervened, or if the canvas playing video element has applied the volume to or not.|
+|stop()	                |will stop the canvas playing video element, set the video currentTime to 0 and will try to display the poster. It will return either null, if intervened, or if the canvas playing video element is stopped or not.|
+|unmute()	              |will unmute the canvas playing video element. It will return either null, if intervened, or if the canvas playing video element is unmuted or not.|
+
 # easter egg $${\color{yellow}prototype}$$ $${\color{blue}function's}$$ 
 
 there are some nifty $${\color{yellow}prototype}$$ functions build in, have fun coding.
