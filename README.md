@@ -20,7 +20,7 @@ this one does.
 - the poster can be either a url, a loaded image or a none empty HTMLCanvasElement.
 - video url gets automatically fetched
 - so no other items are needed to start this project.
-13. Independable functions, All functions are written in such a manner, that they are independable form other functions. So if one function is failing or has no return, only functions that are called via this function doesn't get executed, while all others will function as surposed.
+13. Independable functions, All functions are written in such a manner, that they are independable from other functions. So if one function is failing or has no return, only functions that are called via this function doesn't get executed, while all others will function as surposed.
 14. You can enable or disable the project at any time.
 This and many more features are already within this project.
 
@@ -204,7 +204,7 @@ _source object will be filled by the ``_src`` function.
 _track is yet unused but will in later PRIME versions handle sub text tracks objects. 
 
 # about the ``HTMLCanvasElement`` costum methods
-those are async functions without an actual promise, this done only for you can run a `HTMLCanvasElement`.`play()`.`then` function based on the outcome of the method.
+those are async functions without an actual promise, this done only for you to can run a `HTMLCanvasElement`.`play()`.`then` function based on the outcome of the method.
 ![Screenshot of a canvas costum methods.](https://drive.google.com/uc?export=view&id=11Y0WWewFOqnglUxuWczt0_8r_rxB6laG)
 
 | method                | method does                                                       |
